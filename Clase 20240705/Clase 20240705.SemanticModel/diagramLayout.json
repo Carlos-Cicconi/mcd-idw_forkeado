@@ -1,0 +1,176 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 68.55650886004446
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 946.40586703611609,
+            "y": 582.28226633420445
+          },
+          "nodeIndex": "Clientes",
+          "nodeLineageTag": "74747801-623c-46af-b4a6-8818bab9e83c",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1299.1428857279034,
+            "y": -10
+          },
+          "nodeIndex": "Empleados",
+          "nodeLineageTag": "0393c202-a195-4f0e-9969-ade9780b1486",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 324.57256793837666,
+            "y": 245.3747613658586
+          },
+          "nodeIndex": "Productos",
+          "nodeLineageTag": "e96f5de3-9ba2-4434-b0f0-33653d6b69ea",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1288.2823377800173,
+            "y": 582.3266438944554
+          },
+          "nodeIndex": "Regiones",
+          "nodeLineageTag": "294ab2d2-83fe-4e3f-831c-93dba7dc879e",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 639.01553711098541,
+            "y": 50.86876484561617
+          },
+          "nodeIndex": "Ventas",
+          "nodeLineageTag": "521f0715-44e7-4c97-aaf7-1d1ed20b94bf",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 40.400564104979935,
+            "y": 509.37197254634873
+          },
+          "nodeIndex": "_Billing MySQL",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1014.960442693518,
+            "y": 284.14474677636406
+          },
+          "nodeIndex": "_cliente_r",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1305.0155371109854,
+            "y": 283.43975456446049
+          },
+          "nodeIndex": "_cliente_w",
+          "nodeLineageTag": "967c4716-c13b-4666-820e-d8e3a8eeb414",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 597.15046873342351,
+            "y": 510.27337353402083
+          },
+          "nodeIndex": "_Billing",
+          "nodeLineageTag": "d1fa0edd-677a-400f-a2ab-7aff0179f098",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 900,
+            "y": 0
+          },
+          "nodeIndex": "_sales billing",
+          "nodeLineageTag": "4f8e9b63-ae5b-47ad-9922-3060380c3e76",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 41.783278290538306,
+            "y": 56.474088131261695
+          },
+          "nodeIndex": "_sales billing_detail",
+          "nodeLineageTag": "9c8f22f8-5fe5-4e18-a21b-b3ee59e0d428",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 298.75681029344292,
+            "y": 720.88984219337783
+          },
+          "nodeIndex": "_Descuentos",
+          "nodeLineageTag": "3b32cc73-8ff2-4cf4-b0b0-b705088a57c9",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 60,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}
