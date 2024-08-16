@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.128.751.0 (24.04)"
+        "value": "2.131.1203.0 (24.07)"
       },
       {
         "name": "PBI_ProTooling",
@@ -33,6 +33,7 @@
       }
     ],
     "dataAccessOptions": {
+      "fastCombine": true,
       "legacyRedirects": true,
       "returnErrorValuesAsNull": true
     },
@@ -83,12 +84,48 @@
         "toTable": "LocalDateTable_86bb4743-aa43-4f8a-913c-33f88cd7cd50"
       },
       {
-        "name": "25e5df5d-23e3-43d8-b5b9-d0418b41d8cd",
-        "fromColumn": "DATE",
-        "fromTable": "Ventas",
+        "name": "cd913716-042e-4a64-8317-b56732e27af6",
+        "fromColumn": "Date",
+        "fromTable": "Tiempo",
         "joinOnDateBehavior": "datePartOnly",
         "toColumn": "Date",
-        "toTable": "LocalDateTable_08cb10ea-686a-45c2-971a-ca43bbe5e252"
+        "toTable": "LocalDateTable_fdb55cc5-ce5a-45ba-bcbd-f4695ca9c364"
+      },
+      {
+        "name": "d889d6a5-6375-2349-bfe9-f83aa9af8a3c",
+        "fromColumn": "CUSTOMER_ID",
+        "fromTable": "Ventas",
+        "toColumn": "CUSTOMER_ID",
+        "toTable": "Clientes"
+      },
+      {
+        "name": "e97a02fe-f278-ffcf-a532-9ec20cdb3ab0",
+        "crossFilteringBehavior": "bothDirections",
+        "fromColumn": "ZIPCODE",
+        "fromTable": "Clientes",
+        "toColumn": "ZIPCODE",
+        "toTable": "Regiones"
+      },
+      {
+        "name": "3ae01c8c-51f9-4d5c-1086-6414f1766c0d",
+        "fromColumn": "PRODUCT_ID",
+        "fromTable": "Ventas",
+        "toColumn": "PRODUCT_ID",
+        "toTable": "Productos"
+      },
+      {
+        "name": "fe0e0549-d19f-1f47-ac1b-4b9ef49d73b8",
+        "fromColumn": "EMPLOYEE_ID",
+        "fromTable": "Ventas",
+        "toColumn": "EMPLOYEE_ID",
+        "toTable": "Empleados"
+      },
+      {
+        "name": "117f69fa-fc7f-f965-85ae-6dea4f22f1be",
+        "fromColumn": "DATE",
+        "fromTable": "Ventas",
+        "toColumn": "Date",
+        "toTable": "Tiempo"
       }
     ],
     "sourceQueryCulture": "es-AR",
@@ -118,7 +155,7 @@
             "formatString": "0",
             "lineageTag": "2eea6841-f672-478e-9c22-8196f6aa70f2",
             "sourceColumn": "PRODUCT_ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "DETAIL",
@@ -213,7 +250,7 @@
             "dataType": "double",
             "lineageTag": "ddb4ac8f-c708-434e-8a50-ea4e185ec049",
             "sourceColumn": "Cantidad de litros",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "e96f5de3-9ba2-4434-b0f0-33653d6b69ea",
@@ -224,7 +261,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Origen = Csv.Document(File.Contents(\"C:\\Users\\Carlos\\Downloads\\TP BD2\\TP BD2\\Fuentes de datos\\Products.txt\"),[Delimiter=\"|\", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    Origen = Csv.Document(File.Contents(\"C:\\Dropbox\\Universidad Austral\\Introducción a Data Warehouse\\Fuentes de Datos\\Products.txt\"),[Delimiter=\"|\", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Tipo cambiado\" = Table.TransformColumnTypes(Origen,{{\"Column1\", Int64.Type}, {\"Column2\", type text}, {\"Column3\", type text}}),",
                 "    #\"Columnas con nombre cambiado\" = Table.RenameColumns(#\"Tipo cambiado\",{{\"Column1\", \"PRODUCT_ID\"}, {\"Column2\", \"DETAIL\"}, {\"Column3\", \"PACKAGE\"}}),",
                 "    #\"Columna condicional agregada\" = Table.AddColumn(#\"Columnas con nombre cambiado\", \"EsLata\", each if Text.Contains([PACKAGE], \" can\") then \"SI\" else \"NO\", type text),",
@@ -265,7 +302,6 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
             "lineageTag": "a8624e87-d891-4f13-a35c-a21329fae6c2",
@@ -288,7 +324,6 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "22e69d6b-6eaa-4cd0-a57f-1c2c4f112113",
             "summarizeBy": "none",
@@ -309,7 +344,6 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "0b918154-17e8-485e-80b5-dd968a10eb66",
             "summarizeBy": "none",
@@ -351,7 +385,6 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([NroMes] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "0cde083d-4c89-4ccf-824b-4fdc3fe7026c",
             "summarizeBy": "none",
@@ -393,7 +426,6 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "0c714b5d-a9c6-4af9-becd-d109a9d9c7c6",
             "summarizeBy": "none",
@@ -477,7 +509,7 @@
             "formatString": "0",
             "lineageTag": "1e3b349b-78dd-4fb5-a141-a00ae3445dc9",
             "sourceColumn": "EMPLOYEE_ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "FULL_NAME",
@@ -566,12 +598,13 @@
             "source": {
               "expression": [
                 "let",
-                "    Origen = Excel.Workbook(File.Contents(\"C:\\Users\\Carlos\\Downloads\\TP BD2\\TP BD2\\Fuentes de datos\\Employee.xls\"), null, true),",
+                "    Origen = Excel.Workbook(File.Contents(\"C:\\Dropbox\\Universidad Austral\\Introducción a Data Warehouse\\Fuentes de Datos\\Employee.xlsx\"), null, true),",
                 "    Employee1 = Origen{[Name=\"Employee\"]}[Data],",
                 "    #\"Encabezados promovidos\" = Table.PromoteHeaders(Employee1, [PromoteAllScalars=true]),",
-                "    #\"Tipo cambiado\" = Table.TransformColumnTypes(#\"Encabezados promovidos\",{{\"EMPLOYEE_ID\", Int64.Type}, {\"FULL_NAME\", type text}, {\"CATEGORY\", type text}, {\"EMPLOYMENT_DATE\", type text}, {\"BIRTH_DATE\", type text}, {\"EDUCATION_LEVEL\", type text}, {\"GENDER\", type text}})",
+                "    #\"Tipo cambiado\" = Table.TransformColumnTypes(#\"Encabezados promovidos\",{{\"EMPLOYEE_ID\", Int64.Type}, {\"FULL_NAME\", type text}, {\"CATEGORY\", type text}, {\"EMPLOYMENT_DATE\", type text}, {\"BIRTH_DATE\", type text}, {\"EDUCATION_LEVEL\", type text}, {\"GENDER\", type text}}),",
+                "    #\"Filas filtradas\" = Table.SelectRows(#\"Tipo cambiado\", each ([EMPLOYEE_ID] <> null))",
                 "in",
-                "    #\"Tipo cambiado\""
+                "    #\"Filas filtradas\""
               ],
               "type": "m"
             }
@@ -642,7 +675,7 @@
             "formatString": "0",
             "lineageTag": "27d9185d-24d3-4d08-853b-6ba0ede15040",
             "sourceColumn": "ZIPCODE",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "294ab2d2-83fe-4e3f-831c-93dba7dc879e",
@@ -653,7 +686,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Origen = Csv.Document(File.Contents(\"C:\\Users\\Carlos\\Downloads\\TP BD2\\TP BD2\\Fuentes de datos\\Regions.txt\"),[Delimiter=\"|\", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    Origen = Csv.Document(File.Contents(\"C:\\Dropbox\\Universidad Austral\\Introducción a Data Warehouse\\Fuentes de Datos\\Regions.txt\"),[Delimiter=\"|\", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Tipo cambiado\" = Table.TransformColumnTypes(Origen,{{\"Column1\", type text}, {\"Column2\", type text}, {\"Column3\", type text}, {\"Column4\", Int64.Type}}),",
                 "    #\"Columnas con nombre cambiado\" = Table.RenameColumns(#\"Tipo cambiado\",{{\"Column1\", \"REGION\"}, {\"Column2\", \"STATE\"}, {\"Column3\", \"CITY\"}, {\"Column4\", \"ZIPCODE\"}})",
                 "in",
@@ -828,7 +861,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Origen = Xml.Tables(File.Contents(\"C:\\Users\\Carlos\\Downloads\\TP BD2\\TP BD2\\Fuentes de datos\\Customer_R.xml\")),",
+                "    Origen = Xml.Tables(File.Contents(\"C:\\Dropbox\\Universidad Austral\\Introducción a Data Warehouse\\Fuentes de Datos\\Customer_R.xml\")),",
                 "    Table0 = Origen{0}[Table],",
                 "    #\"Tipo cambiado\" = Table.TransformColumnTypes(Table0,{{\"CUSTOMER_ID\", Int64.Type}, {\"FULL_NAME\", type text}, {\"BIRTH_DATE\", type text}, {\"CITY\", type text}, {\"STATE\", type text}, {\"ZIPCODE\", Int64.Type}}),",
                 "    #\"Personalizada agregada\" = Table.AddColumn(#\"Tipo cambiado\", \"Personalizado\", each \"Minorista\"),",
@@ -1005,7 +1038,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Origen = Xml.Tables(File.Contents(\"C:\\Users\\Carlos\\Downloads\\TP BD2\\TP BD2\\Fuentes de datos\\Customer_W.xml\")),",
+                "    Origen = Xml.Tables(File.Contents(\"C:\\Dropbox\\Universidad Austral\\Introducción a Data Warehouse\\Fuentes de Datos\\Customer_W.xml\")),",
                 "    Table0 = Origen{0}[Table],",
                 "    #\"Tipo cambiado\" = Table.TransformColumnTypes(Table0,{{\"CUSTOMER_ID\", Int64.Type}, {\"FULL_NAME\", type text}, {\"BIRTH_DATE\", type text}, {\"CITY\", type text}, {\"STATE\", type text}, {\"ZIPCODE\", Int64.Type}}),",
                 "    #\"Personalizada agregada\" = Table.AddColumn(#\"Tipo cambiado\", \"Personalizado\", each \"Matorista\"),",
@@ -1043,7 +1076,7 @@
             "formatString": "0",
             "lineageTag": "cf9f9e1a-0ce7-4d87-ad3a-41ecbf73fa2c",
             "sourceColumn": "CUSTOMER_ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "FULL_NAME",
@@ -1109,7 +1142,7 @@
             "formatString": "0",
             "lineageTag": "23b9dc0d-b5b2-4c0f-8493-93e5c84dd944",
             "sourceColumn": "ZIPCODE",
-            "summarizeBy": "sum"
+            "summarizeBy": "none"
           },
           {
             "name": "Tipo de Cliente",
@@ -1355,7 +1388,6 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
             "lineageTag": "38326b8f-703e-4f96-bfc1-fbfa773162fe",
@@ -1378,7 +1410,6 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "21edd57a-6deb-4688-b039-7039cd6feb24",
             "summarizeBy": "none",
@@ -1399,7 +1430,6 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "04c3b435-1364-482a-9ecf-0f44c4655b58",
             "summarizeBy": "none",
@@ -1441,7 +1471,6 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([NroMes] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "f0a71dfa-f876-4c04-a90f-13e015ecf88d",
             "summarizeBy": "none",
@@ -1483,7 +1512,6 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "d3d1baf6-169d-49bd-8088-658717166003",
             "summarizeBy": "none",
@@ -1731,7 +1759,6 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
             "lineageTag": "1d347aef-c7ba-4872-824b-a27d73931ae7",
@@ -1754,7 +1781,6 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "08eeb1be-0b65-420c-898f-930a865584b6",
             "summarizeBy": "none",
@@ -1775,7 +1801,6 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "a90a4a68-af31-489a-a70f-6f97cdc218f8",
             "summarizeBy": "none",
@@ -1817,7 +1842,6 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([NroMes] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "12b8c41a-81a7-435f-84fe-757d4c8c5546",
             "summarizeBy": "none",
@@ -1859,7 +1883,6 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "f3fb9e27-e89c-4f5c-a283-48ae75c1d4ff",
             "summarizeBy": "none",
@@ -2355,7 +2378,6 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
             "lineageTag": "2e572faa-9eb6-41a3-9f8f-d7105cf2e580",
@@ -2378,7 +2400,6 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "122a5b18-0f30-4ed1-a0ff-d8d415d4ce3e",
             "summarizeBy": "none",
@@ -2399,7 +2420,6 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "9a4d105f-f138-4489-9fc9-70309a6bb644",
             "summarizeBy": "none",
@@ -2441,7 +2461,6 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([NroMes] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "2df8aebb-a069-4da8-bddd-16e097912e06",
             "summarizeBy": "none",
@@ -2483,7 +2502,6 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
             "lineageTag": "fc17d2a6-1dd0-463a-8bb3-84a198bc09b7",
             "summarizeBy": "none",
@@ -2568,7 +2586,7 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "d300e764-5b18-4d6b-aab0-1104a17a2c80",
+            "lineageTag": "63627bc9-ad19-432a-b47b-0dcc7c99b36c",
             "sourceColumn": "BILLING_ID",
             "summarizeBy": "count"
           },
@@ -2581,7 +2599,7 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "37207544-8f93-46d7-81f7-6c7877f8e12a",
+            "lineageTag": "d105313b-ef37-44ac-8534-9cab5dd307c1",
             "sourceColumn": "REGION",
             "summarizeBy": "none"
           },
@@ -2594,21 +2612,10 @@
               }
             ],
             "dataType": "dateTime",
-            "formatString": "General Date",
-            "lineageTag": "728c00ba-8017-4543-bcd9-8dc56cb09b0c",
+            "formatString": "Short Date",
+            "lineageTag": "a41c87b4-8f64-4ddc-be61-c5849c49a69a",
             "sourceColumn": "DATE",
-            "summarizeBy": "none",
-            "variations": [
-              {
-                "name": "Variación",
-                "defaultHierarchy": {
-                  "hierarchy": "Jerarquía de fechas",
-                  "table": "LocalDateTable_08cb10ea-686a-45c2-971a-ca43bbe5e252"
-                },
-                "isDefault": true,
-                "relationship": "25e5df5d-23e3-43d8-b5b9-d0418b41d8cd"
-              }
-            ]
+            "summarizeBy": "none"
           },
           {
             "name": "CUSTOMER_ID",
@@ -2623,9 +2630,9 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "e6541b49-b7fe-4604-badf-bba5b164c125",
+            "lineageTag": "e47f223f-d9ae-42c4-b8d1-28918dee6b1d",
             "sourceColumn": "CUSTOMER_ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "EMPLOYEE_ID",
@@ -2640,9 +2647,9 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "8be7a74b-4ccf-4c11-b310-fb634123af4c",
+            "lineageTag": "6b68af8b-8f79-4174-b000-4068f8465e4b",
             "sourceColumn": "EMPLOYEE_ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "PRODUCT_ID",
@@ -2657,9 +2664,9 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "0b9e229d-3186-4695-97ed-46899fe5e39b",
+            "lineageTag": "770fead8-2730-47e7-aba5-8aefaf8c284b",
             "sourceColumn": "PRODUCT_ID",
-            "summarizeBy": "count"
+            "summarizeBy": "none"
           },
           {
             "name": "QUANTITY",
@@ -2674,7 +2681,7 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "aff39167-1c97-4d5f-ae4e-2ae13ca1a648",
+            "lineageTag": "5f05eea0-a30e-4949-9a3a-9e0f4a65a884",
             "sourceColumn": "QUANTITY",
             "summarizeBy": "sum"
           },
@@ -2691,7 +2698,7 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "0cbbbf31-64f6-4dbc-bf08-3d31a9a1ae7d",
+            "lineageTag": "54075f7a-0141-4857-8f18-e5670e758cc0",
             "sourceColumn": "Descuentos.PERCENTAGE_Apply",
             "summarizeBy": "sum"
           },
@@ -2708,7 +2715,7 @@
               }
             ],
             "dataType": "double",
-            "lineageTag": "7da888cc-9108-4856-9cec-701cf87744d7",
+            "lineageTag": "fae5f5eb-c1b5-49a4-bcbe-af6f4a2c6392",
             "sourceColumn": "Descuentos.TOTAL_BILLING_Apply",
             "summarizeBy": "sum"
           }
@@ -2724,9 +2731,10 @@
                 "let",
                 "    Origen = Table.Combine({#\"_Billing MySQL\", _Billing}),",
                 "    #\"Consultas combinadas\" = Table.NestedJoin(Origen, {\"BILLING_ID\"}, _Descuentos, {\"BILLING_ID\"}, \"Descuentos\", JoinKind.LeftOuter),",
-                "    #\"Se expandió Descuentos\" = Table.ExpandTableColumn(#\"Consultas combinadas\", \"Descuentos\", {\"PERCENTAGE_Apply\", \"TOTAL_BILLING_Apply\"}, {\"Descuentos.PERCENTAGE_Apply\", \"Descuentos.TOTAL_BILLING_Apply\"})",
+                "    #\"Se expandió Descuentos\" = Table.ExpandTableColumn(#\"Consultas combinadas\", \"Descuentos\", {\"PERCENTAGE_Apply\", \"TOTAL_BILLING_Apply\"}, {\"Descuentos.PERCENTAGE_Apply\", \"Descuentos.TOTAL_BILLING_Apply\"}),",
+                "    #\"Filas filtradas\" = Table.SelectRows(#\"Se expandió Descuentos\", each ([REGION] <> null))",
                 "in",
-                "    #\"Se expandió Descuentos\""
+                "    #\"Filas filtradas\""
               ],
               "type": "m"
             }
@@ -2734,7 +2742,73 @@
         ]
       },
       {
-        "name": "LocalDateTable_08cb10ea-686a-45c2-971a-ca43bbe5e252",
+        "name": "Tiempo",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "d988041f5bdb45cc8cf55397c9971b0a"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Short Date",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "2e3c79ae-9d6b-49a6-9c75-0303817a33d3",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn",
+            "variations": [
+              {
+                "name": "Variación",
+                "defaultHierarchy": {
+                  "hierarchy": "Jerarquía de fechas",
+                  "table": "LocalDateTable_fdb55cc5-ce5a-45ba-bcbd-f4695ca9c364"
+                },
+                "isDefault": true,
+                "relationship": "cd913716-042e-4a64-8317-b56732e27af6"
+              }
+            ]
+          },
+          {
+            "name": "Mes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "month(Tiempo[Date])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "c62ed045-ab28-4815-a92d-3c7481827446",
+            "summarizeBy": "sum",
+            "type": "calculated"
+          }
+        ],
+        "lineageTag": "ef2457d5-2b7c-47c1-ab29-684493be77c7",
+        "partitions": [
+          {
+            "name": "Tiempo",
+            "mode": "import",
+            "source": {
+              "expression": "CALENDARAUTO()",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "LocalDateTable_fdb55cc5-ce5a-45ba-bcbd-f4695ca9c364",
         "annotations": [
           {
             "name": "__PBI_LocalDateTable",
@@ -2752,10 +2826,9 @@
             ],
             "dataCategory": "PaddedDateTableDates",
             "dataType": "dateTime",
-            "formatString": "General Date",
             "isHidden": true,
             "isNameInferred": true,
-            "lineageTag": "d580fbec-7ff9-4a98-912d-f03396bc7244",
+            "lineageTag": "868367f4-3e8e-4665-9db9-eebf081b725e",
             "sourceColumn": "[Date]",
             "summarizeBy": "none",
             "type": "calculatedTableColumn"
@@ -2775,9 +2848,8 @@
             "dataCategory": "Years",
             "dataType": "int64",
             "expression": "YEAR([Date])",
-            "formatString": "0",
             "isHidden": true,
-            "lineageTag": "0692e898-b007-4063-8249-d0fe346d941b",
+            "lineageTag": "47ac1309-931f-4854-86d9-6cf60d664589",
             "summarizeBy": "none",
             "type": "calculated"
           },
@@ -2796,9 +2868,8 @@
             "dataCategory": "MonthOfYear",
             "dataType": "int64",
             "expression": "MONTH([Date])",
-            "formatString": "0",
             "isHidden": true,
-            "lineageTag": "8a02ebd3-5c7c-412a-b17e-9adbcf73f61f",
+            "lineageTag": "c0853e4d-0740-4d86-93ce-d28449e79751",
             "summarizeBy": "none",
             "type": "calculated"
           },
@@ -2818,7 +2889,7 @@
             "dataType": "string",
             "expression": "FORMAT([Date], \"MMMM\")",
             "isHidden": true,
-            "lineageTag": "7536787c-9a8e-430e-b2f4-aa0e1bb83e4b",
+            "lineageTag": "84189aaf-74bd-4a87-bc18-b30de43d24de",
             "sortByColumn": "NroMes",
             "summarizeBy": "none",
             "type": "calculated"
@@ -2838,9 +2909,8 @@
             "dataCategory": "QuarterOfYear",
             "dataType": "int64",
             "expression": "INT(([NroMes] + 2) / 3)",
-            "formatString": "0",
             "isHidden": true,
-            "lineageTag": "4352525a-d3eb-4dca-ae63-045ccfb9dd6f",
+            "lineageTag": "74dc835b-1bbc-4a08-b0f5-3fecd8b3a33a",
             "summarizeBy": "none",
             "type": "calculated"
           },
@@ -2860,7 +2930,7 @@
             "dataType": "string",
             "expression": "\"Trim. \" & [NroTrimestre]",
             "isHidden": true,
-            "lineageTag": "cbc076e9-2cb1-421b-ae1e-8b6dd78a3662",
+            "lineageTag": "0c0db1cc-c725-489e-bba0-03959ff77624",
             "sortByColumn": "NroTrimestre",
             "summarizeBy": "none",
             "type": "calculated"
@@ -2880,9 +2950,8 @@
             "dataCategory": "DayOfMonth",
             "dataType": "int64",
             "expression": "DAY([Date])",
-            "formatString": "0",
             "isHidden": true,
-            "lineageTag": "4cf4a555-bbc8-49e0-bc7c-089e921f4aa7",
+            "lineageTag": "b5feaa4c-3069-40a4-8565-870451a6f019",
             "summarizeBy": "none",
             "type": "calculated"
           }
@@ -2900,39 +2969,39 @@
               {
                 "name": "Año",
                 "column": "Año",
-                "lineageTag": "10486a72-3c87-4718-840e-26229eed60a9",
+                "lineageTag": "5d395e3d-d991-43b9-b030-77b78549827e",
                 "ordinal": 0
               },
               {
                 "name": "Trimestre",
                 "column": "Trimestre",
-                "lineageTag": "bc994979-1946-4d1f-b49f-5f32ae23c7a3",
+                "lineageTag": "2f5fa30d-8222-442c-b871-d1da415e0f60",
                 "ordinal": 1
               },
               {
                 "name": "Mes",
                 "column": "Mes",
-                "lineageTag": "6b2cfe70-6e14-422a-ac18-ec0bd798aebd",
+                "lineageTag": "260cb20d-b854-48c8-b6c7-e19248007651",
                 "ordinal": 2
               },
               {
                 "name": "Día",
                 "column": "Día",
-                "lineageTag": "724b5d73-dd6f-4376-97ec-b9f6cde4d24e",
+                "lineageTag": "73fc906d-a509-4ada-ab05-17f383cde1ee",
                 "ordinal": 3
               }
             ],
-            "lineageTag": "0c9bbc7c-00a0-462a-9977-eacdfb0d8017"
+            "lineageTag": "f8a8a2a5-d497-44d3-aecc-ac8d01270d44"
           }
         ],
         "isHidden": true,
-        "lineageTag": "07edbf20-f3f5-44c2-90eb-756893bb5d0a",
+        "lineageTag": "afe16305-7cec-4665-bfc2-8aa183f31d7c",
         "partitions": [
           {
-            "name": "LocalDateTable_08cb10ea-686a-45c2-971a-ca43bbe5e252",
+            "name": "LocalDateTable_fdb55cc5-ce5a-45ba-bcbd-f4695ca9c364",
             "mode": "import",
             "source": {
-              "expression": "Calendar(Date(Year(MIN('Ventas'[DATE])), 1, 1), Date(Year(MAX('Ventas'[DATE])), 12, 31))",
+              "expression": "Calendar(Date(Year(MIN('Tiempo'[Date])), 1, 1), Date(Year(MAX('Tiempo'[Date])), 12, 31))",
               "type": "calculated"
             }
           }
